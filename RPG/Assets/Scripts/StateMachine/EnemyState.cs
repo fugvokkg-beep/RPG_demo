@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyState : EntityState
@@ -12,12 +10,9 @@ public class EnemyState : EntityState
 
         rb = enemy.rb;
         anim = enemy.anim;
+        stats = enemy.stats;
     }
 
-    public override void update()
-    {
-        base.update();
-    }
 
     public override void UpdateAnimationParameters()
     {

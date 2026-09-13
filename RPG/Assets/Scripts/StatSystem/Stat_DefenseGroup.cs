@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Stat_DefenseGroup
+public class Stat_DefenseGroup 
 {
     // Physical defense
     public Stat armor;

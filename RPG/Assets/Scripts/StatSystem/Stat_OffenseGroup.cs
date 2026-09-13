@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 [Serializable]
 public class Stat_OffenseGroup
@@ -13,7 +10,7 @@ public class Stat_OffenseGroup
     public Stat critPower;
     public Stat critChance;
     public Stat armorReduction;
-     
+
     // Elemental damage
     public Stat fireDamage;
     public Stat iceDamage;

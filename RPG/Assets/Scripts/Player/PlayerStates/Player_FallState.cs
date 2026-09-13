@@ -1,26 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_FallState : Player_AiredState
 {
-    public Player_FallState(Player player, StateMachine stateMachine, string animBoolname) : base(player, stateMachine, animBoolname)
+    public Player_FallState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
-
     }
 
-    public override void update()
+    public override void Update()
     {
-        base.update();
+        base.Update();
 
         if (player.groundDetected)
-        {
             stateMachine.ChangeState(player.idleState);
-        }
 
         if (player.wallDetected)
-        {
             stateMachine.ChangeState(player.wallSlideState);
-        }
     }
 }

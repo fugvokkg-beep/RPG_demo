@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_AnimationTriggers : Entity_AnimationTriggers
@@ -10,20 +8,20 @@ public class Enemy_AnimationTriggers : Entity_AnimationTriggers
     protected override void Awake()
     {
         base.Awake();
-
-
         enemy = GetComponentInParent<Enemy>();
         enemyVfx = GetComponentInParent<Enemy_VFX>();
     }
 
+
     private void EnableCounterWindow()
     {
         enemyVfx.EnableAttackAlert(true);
-        enemy.EnableCounterwindow(true);
+        enemy.EnableCounterWindow(true);
     }
+
     private void DisableCounterWindow()
     {
         enemyVfx.EnableAttackAlert(false);
-        enemy.EnableCounterwindow(false);
+        enemy.EnableCounterWindow(false);
     }
 }

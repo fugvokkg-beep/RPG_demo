@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: playerCounterattack_performed
+  m_Name: playerCounterAttack_performed
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,13 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -1098350223, guid: e3db64c2abd37664f85d6b8d39c3b176, type: 3}
+      value: {fileID: -1542486373, guid: 0a3f5e23b367f13428bdf880a182b529, type: 3}
     - time: 0.071428575
-      value: {fileID: 793898468, guid: e3db64c2abd37664f85d6b8d39c3b176, type: 3}
+      value: {fileID: 1910693610, guid: 0a3f5e23b367f13428bdf880a182b529, type: 3}
     - time: 0.14285715
-      value: {fileID: 1783810961, guid: e3db64c2abd37664f85d6b8d39c3b176, type: 3}
+      value: {fileID: 880283555, guid: 0a3f5e23b367f13428bdf880a182b529, type: 3}
     - time: 0.21428572
-      value: {fileID: 246576376, guid: e3db64c2abd37664f85d6b8d39c3b176, type: 3}
+      value: {fileID: -499614176, guid: 0a3f5e23b367f13428bdf880a182b529, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -50,10 +50,10 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -1098350223, guid: e3db64c2abd37664f85d6b8d39c3b176, type: 3}
-    - {fileID: 793898468, guid: e3db64c2abd37664f85d6b8d39c3b176, type: 3}
-    - {fileID: 1783810961, guid: e3db64c2abd37664f85d6b8d39c3b176, type: 3}
-    - {fileID: 246576376, guid: e3db64c2abd37664f85d6b8d39c3b176, type: 3}
+    - {fileID: -1542486373, guid: 0a3f5e23b367f13428bdf880a182b529, type: 3}
+    - {fileID: 1910693610, guid: 0a3f5e23b367f13428bdf880a182b529, type: 3}
+    - {fileID: 880283555, guid: 0a3f5e23b367f13428bdf880a182b529, type: 3}
+    - {fileID: -499614176, guid: 0a3f5e23b367f13428bdf880a182b529, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -80,7 +80,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.21428572
-    functionName: CurrentStateTriger
+    functionName: CurrentStateTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

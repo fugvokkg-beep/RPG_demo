@@ -1,37 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_JumpAttackState : PlayerState
 {
     private bool touchedGround;
-    public Player_JumpAttackState(Player player, StateMachine stateMachine, string animBoolname) : base(player, stateMachine, animBoolname)
-    {
 
+    public Player_JumpAttackState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
+    {
     }
 
     public override void Enter()
     {
         base.Enter();
-
         touchedGround = false;
 
-        player.SetVelocity(player.jumpAttackVelocity.x * player.facingDer, player.jumpAttackVelocity.y);
+        player.SetVelocity(player.jumpAttackVelocity.x * player.facingDir, player.jumpAttackVelocity.y);
     }
-    public override void update()
+
+    public override void Update()
     {
-        base.update();
+        base.Update();
 
         if (player.groundDetected && touchedGround == false)
         {
             touchedGround = true;
-            anim.SetTrigger("jumpAttackTigger");
+            anim.SetTrigger("jumpAttackTrigger");
             player.SetVelocity(0, rb.velocity.y);
         }
 
-        if(triggerCalled && player.groundDetected)
-        {
+        if (triggerCalled && player.groundDetected)
             stateMachine.ChangeState(player.idleState);
-        }
     }
+
 }

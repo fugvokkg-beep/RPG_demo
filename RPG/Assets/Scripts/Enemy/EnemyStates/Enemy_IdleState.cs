@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_IdleState : Enemy_GroundedState
 {
     public Enemy_IdleState(Enemy enemy, StateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
     {
-
     }
+
     public override void Enter()
     {
         base.Enter();
@@ -15,14 +13,12 @@ public class Enemy_IdleState : Enemy_GroundedState
         stateTimer = enemy.idleTime;
     }
 
-    public override void update()
+    public override void Update()
     {
-        base.update();
+        base.Update();
 
-        if(stateTimer < 0)
-        {
+        if (stateTimer < 0)
             stateMachine.ChangeState(enemy.moveState);
-        }
-    }
 
+    }
 }

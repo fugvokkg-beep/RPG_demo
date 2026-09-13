@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Entity_AnimationTriggers : MonoBehaviour
 {
-
     private Entity entity;
     private Entity_Combat entityCombat;
 
@@ -14,13 +11,14 @@ public class Entity_AnimationTriggers : MonoBehaviour
         entityCombat = GetComponentInParent<Entity_Combat>();
     }
 
-    private void CurrentStateTriger()
+    private void CurrentStateTrigger()
     {
         entity.CurrentStateAnimationTrigger();
     }
 
-    private void attackTrigger()
+    private void AttackTrigger()
     {
         entityCombat.PerformAttack();
     }
+
 }

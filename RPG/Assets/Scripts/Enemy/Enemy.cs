@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : Entity
@@ -13,32 +12,48 @@ public class Enemy : Entity
 
     [Header("Battle details")]
     public float battleMoveSpeed = 3;
-    public float attackDistanse = 2;
+    public float attackDistance = 2;
     public float battleTimeDuration = 5;
     public float minRetreatDistance = 1;
     public Vector2 retreatVelocity;
 
-    [Header("Stunned state detains")]
+    [Header("Stunned state details")]
     public float stunnedDuration = 1;
     public Vector2 stunnedVelocity = new Vector2(7, 7);
-
-    protected bool canBeStunned;
+    [SerializeField] protected bool canBeStunned;
 
     [Header("Movement details")]
     public float idleTime = 2;
     public float moveSpeed = 1.4f;
-
     [Range(0,2)]
     public float moveAnimSpeedMultiplier = 1;
 
-    [Header("player Detection")]
+    [Header("Player detection")]
     [SerializeField] private LayerMask whatIsPlayer;
     [SerializeField] private Transform playerCheck;
-    [SerializeField] private float playerCheckDistanse;
-
+    [SerializeField] private float playerCheckDistance = 10;
     public Transform player { get; private set; }
 
-    public void EnableCounterwindow(bool enable) => canBeStunned = enable;
+    protected override IEnumerator SlowDownEntityCo(float duration, float slowMultiplier)
+    {
+        float originalMoveSpeed = moveSpeed;
+        float originalBattleSpeed = battleMoveSpeed;
+        float originalAnimSpeed = anim.speed;
+
+        float speedMultiplier = 1 - slowMultiplier;
+
+        moveSpeed = moveSpeed * speedMultiplier;
+        battleMoveSpeed = battleMoveSpeed * speedMultiplier;
+        anim.speed = anim.speed * speedMultiplier;
+        
+        yield return new WaitForSeconds(duration);
+
+        moveSpeed = originalMoveSpeed;
+        battleMoveSpeed = originalBattleSpeed;
+        anim.speed = originalAnimSpeed;
+    }
+
+    public void EnableCounterWindow(bool enable) => canBeStunned = enable;
 
     public override void EntityDeath()
     {
@@ -52,16 +67,19 @@ public class Enemy : Entity
         stateMachine.ChangeState(idleState);
     }
 
-    public void tryEnterBattleState(Transform player)
+    public void TryEnterBattleState(Transform player)
     {
-        if (stateMachine.currentState == battleState || stateMachine.currentState == attackState)
+        if (stateMachine.currentState == battleState)
+            return;
+
+        if (stateMachine.currentState == attackState)
             return;
 
         this.player = player;
         stateMachine.ChangeState(battleState);
     }
 
-    public Transform GetplayerReferense()
+    public Transform GetPlayerReference()
     {
         if (player == null)
             player = PlayerDetected().transform;
@@ -69,15 +87,14 @@ public class Enemy : Entity
         return player;
     }
 
-    //返回是否检测到player
     public RaycastHit2D PlayerDetected()
     {
-        RaycastHit2D hit = Physics2D.Raycast(playerCheck.position, Vector2.right * facingDer, playerCheckDistanse, whatIsPlayer | whatIsGround);
+        RaycastHit2D hit =
+            Physics2D.Raycast(playerCheck.position, Vector2.right * facingDir, playerCheckDistance, whatIsPlayer | whatIsGround);
 
         if (hit.collider == null || hit.collider.gameObject.layer != LayerMask.NameToLayer("Player"))
-        {
             return default;
-        }
+
         return hit;
     }
 
@@ -86,11 +103,11 @@ public class Enemy : Entity
         base.OnDrawGizmos();
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(playerCheck.position,new Vector3(playerCheck.position.x + facingDer * playerCheckDistanse, playerCheck.position.y));
+        Gizmos.DrawLine(playerCheck.position, new Vector3(playerCheck.position.x + (facingDir * playerCheckDistance), playerCheck.position.y));
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(playerCheck.position, new Vector3(playerCheck.position.x + facingDer * attackDistanse, playerCheck.position.y));
+        Gizmos.DrawLine(playerCheck.position, new Vector3(playerCheck.position.x + (facingDir * attackDistance), playerCheck.position.y));
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(playerCheck.position, new Vector3(playerCheck.position.x + facingDer * minRetreatDistance, playerCheck.position.y));
+        Gizmos.DrawLine(playerCheck.position, new Vector3(playerCheck.position.x + (facingDir * minRetreatDistance), playerCheck.position.y));
 
     }
 
@@ -101,6 +118,6 @@ public class Enemy : Entity
 
     private void OnDisable()
     {
-        Player.OnPlayerDeath -= HandlePlayerDeath;
+       Player.OnPlayerDeath -= HandlePlayerDeath;  
     }
 }

@@ -1,8 +1,8 @@
 public class Player_CounterAttackState : PlayerState
 {
-
     private Player_Combat combat;
-    private bool counterSomebody;
+    private bool counteredSombody;
+
     public Player_CounterAttackState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
         combat = player.GetComponent<Player_Combat>();
@@ -12,26 +12,22 @@ public class Player_CounterAttackState : PlayerState
     {
         base.Enter();
 
-        counterSomebody = combat.CounterAttackPerforned();
-        stateTimer = combat.GetcounterRecoveryDuration();
+        stateTimer = combat.GetCounterRecoveryDuration();
+        counteredSombody = combat.CounterAttackPerformed();
 
-        anim.SetBool("counterAttackPerformed", counterSomebody);
+        anim.SetBool("counterAttackPerformed", counteredSombody);
     }
 
-    public override void update()
+    public override void Update()
     {
-        base.update();
-
+        base.Update();
         player.SetVelocity(0, rb.velocity.y);
 
-        if (triggerCalled)
-        {
-            stateMachine.ChangeState(player.idleState);
-            anim.SetBool("counterAttackPerformed", false);
-            anim.SetBool("counterAttack", false);
-        }
 
-        if (stateTimer < 0 && counterSomebody == false)
+        if (triggerCalled)
+            stateMachine.ChangeState(player.idleState);
+
+        if (stateTimer < 0 && counteredSombody == false)
             stateMachine.ChangeState(player.idleState);
     }
 }

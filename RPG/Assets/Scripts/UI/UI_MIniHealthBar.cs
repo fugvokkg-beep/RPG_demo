@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class UI_MIniHealthBar : MonoBehaviour
+public class UI_MiniHealthBar : MonoBehaviour
 {
-
     private Entity entity;
 
     private void Awake()
@@ -14,11 +13,11 @@ public class UI_MIniHealthBar : MonoBehaviour
     {
         entity.OnFlipped += HandleFlip;
     }
+
     private void OnDisable()
     {
         entity.OnFlipped -= HandleFlip;
     }
 
     private void HandleFlip() => transform.rotation = Quaternion.identity;
-
 }

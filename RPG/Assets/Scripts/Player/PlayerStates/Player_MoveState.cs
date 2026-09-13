@@ -1,21 +1,19 @@
+using UnityEngine;
+
 public class Player_MoveState : Player_GroundedState
 {
     public Player_MoveState(Player player, StateMachine stateMachine, string stateName) : base(player, stateMachine, stateName)
     {
-
     }
 
-    public override void update()
+    public override void Update()
     {
-        base.update();
+        base.Update();
 
-
-        if (player.moveInput.x == 0 || player.wallDetected)
-        {
+        if (player.moveInput.x == 0  || player.wallDetected)
             stateMachine.ChangeState(player.idleState);
-        }
+
 
         player.SetVelocity(player.moveInput.x * player.moveSpeed, rb.velocity.y);
-
     }
 }

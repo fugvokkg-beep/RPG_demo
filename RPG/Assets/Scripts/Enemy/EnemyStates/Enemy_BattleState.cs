@@ -3,32 +3,31 @@ using UnityEngine;
 public class Enemy_BattleState : EnemyState
 {
     private Transform player;
-    private float lastTimeWasInButtle;
+    private float lastTimeWasInBattle;
 
-    //private float retreatTimer;
     public Enemy_BattleState(Enemy enemy, StateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
     {
     }
 
+
     public override void Enter()
     {
         base.Enter();
-
         UpdateBattleTimer();
 
-        player ??= enemy.GetplayerReferense();
+        if(player == null)
+            player = enemy.GetPlayerReference();
 
-        //?? retreatTimer?
-        //if (ShouldRetreat())
-        //{
-        //    rb.velocity = new Vector2(enemy.retreatVelocity.x * -DirectionToPlayer(), enemy.retreatVelocity.y);
-        //    enemy.HandleFilp(DirectionToPlayer());
-        //}
+        if (ShouldRetreat())
+        {
+            rb.velocity = new Vector2(enemy.retreatVelocity.x * -DirectionToPlayer(), enemy.retreatVelocity.y);
+            enemy.HandleFlip(DirectionToPlayer());
+        }
     }
 
-    public override void update()
+    public override void Update()
     {
-        base.update();
+        base.Update();
 
         if (enemy.PlayerDetected())
             UpdateBattleTimer();
@@ -37,40 +36,32 @@ public class Enemy_BattleState : EnemyState
             stateMachine.ChangeState(enemy.idleState);
 
         if (WithinAttackRange() && enemy.PlayerDetected())
-        {
             stateMachine.ChangeState(enemy.attackState);
-        }
         else
-        {
             enemy.SetVelocity(enemy.battleMoveSpeed * DirectionToPlayer(), rb.velocity.y);
-        }
-    }
-    private void UpdateBattleTimer() => lastTimeWasInButtle = Time.time;
-    private bool BattleTimeIsOver() => Time.time > lastTimeWasInButtle + enemy.battleTimeDuration;
-    //private bool ShouldRetreat() => DistanseToPlayer() < enemy.minRetreatDistance;
-
-    private bool WithinAttackRange()
-    {
-        return DistanseToPlayer() < enemy.attackDistanse;
     }
 
-    private float DistanseToPlayer()
+    private void UpdateBattleTimer() => lastTimeWasInBattle = Time.time;
+
+    private bool BattleTimeIsOver() => Time.time > lastTimeWasInBattle + enemy.battleTimeDuration;
+
+    private bool WithinAttackRange() => DistanceToPlayer() < enemy.attackDistance;
+    private bool ShouldRetreat() => DistanceToPlayer() < enemy.minRetreatDistance;
+
+    private float DistanceToPlayer()
     {
         if (player == null)
-        {
             return float.MaxValue;
-        }
 
         return Mathf.Abs(player.position.x - enemy.transform.position.x);
     }
 
-    private float DirectionToPlayer()
+    private int DirectionToPlayer()
     {
         if (player == null)
             return 0;
 
-
-
         return player.position.x > enemy.transform.position.x ? 1 : -1;
     }
+
 }

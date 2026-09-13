@@ -1,4 +1,6 @@
-public class Enemy_Skeleton : Enemy, ICounterable
+using UnityEngine;
+
+public class Enemy_Skeleton : Enemy , ICounterable
 {
     public bool CanBeCountered { get => canBeStunned; }
 
@@ -11,7 +13,7 @@ public class Enemy_Skeleton : Enemy, ICounterable
         attackState = new Enemy_AttackState(this, stateMachine, "attack");
         battleState = new Enemy_BattleState(this, stateMachine, "battle");
         deadState = new Enemy_DeadState(this, stateMachine, "idle");
-        stunnedState = new Enemy_StunnedState(this, stateMachine, "stunnded");
+        stunnedState = new Enemy_StunnedState(this, stateMachine, "stunned");
     }
 
     protected override void Start()
@@ -28,4 +30,5 @@ public class Enemy_Skeleton : Enemy, ICounterable
 
         stateMachine.ChangeState(stunnedState);
     }
+
 }

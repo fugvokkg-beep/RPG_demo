@@ -1,30 +1,27 @@
+using UnityEngine;
+
 public class Player_WallJumpState : PlayerState
 {
-    public Player_WallJumpState(Player player, StateMachine stateMachine, string animBoolname) : base(player, stateMachine, animBoolname)
+    public Player_WallJumpState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
 
     }
-
 
     public override void Enter()
     {
         base.Enter();
 
-        player.SetVelocity(player.wallJumpForce.x * -player.facingDer, player.wallJumpForce.y);
+        player.SetVelocity(player.wallJumpForce.x * -player.facingDir, player.wallJumpForce.y);
     }
 
-    public override void update()
+    public override void Update()
     {
-        base.update();
+        base.Update();
 
         if (rb.velocity.y < 0)
-        {
             stateMachine.ChangeState(player.fallState);
-        }
-        if (player.wallDetected)
-        {
-            stateMachine.ChangeState(player.wallSlideState);
-        }
-    }
 
+        if (player.wallDetected)
+            stateMachine.ChangeState(player.wallSlideState);
+    }
 }

@@ -1,21 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_GroundedState : EnemyState
 {
     public Enemy_GroundedState(Enemy enemy, StateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
     {
-
     }
 
-    public override void update()
+    public override void Update()
     {
-        base.update();
+        base.Update();
 
-        if(enemy.PlayerDetected() == true)
-        {
+        if (enemy.PlayerDetected() == true)
             stateMachine.ChangeState(enemy.battleState);
-        }
     }
+
 }

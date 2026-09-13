@@ -1,33 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_MoveState : Enemy_GroundedState
 {
     public Enemy_MoveState(Enemy enemy, StateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
     {
-
     }
 
     public override void Enter()
     {
         base.Enter();
 
-        if (enemy.groundDetected == false || enemy.wallDetected == true)
-        {
-            enemy.Filp();
-        }
+        if (enemy.groundDetected == false || enemy.wallDetected)
+            enemy.Flip();
     }
 
-    public override void update()
+
+    public override void Update()
     {
-        base.update();
+        base.Update();
 
-        enemy.SetVelocity(enemy.moveSpeed * enemy.facingDer, rb.velocity.y);
+        enemy.SetVelocity(enemy.moveSpeed * enemy.facingDir, rb.velocity.y);
 
-        if(enemy.groundDetected == false || enemy.wallDetected == true)
-        {
+        if (enemy.groundDetected == false || enemy.wallDetected)
             stateMachine.ChangeState(enemy.idleState);
-        }
     }
 }

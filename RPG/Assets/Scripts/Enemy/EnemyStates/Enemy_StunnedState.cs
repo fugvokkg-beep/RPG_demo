@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_StunnedState : EnemyState
 {
-
     private Enemy_VFX vfx;
+
     public Enemy_StunnedState(Enemy enemy, StateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
     {
-        vfx = enemy.GetComponent<Enemy_VFX>();
+        vfx =  enemy.GetComponent<Enemy_VFX>();
     }
 
     public override void Enter()
@@ -16,17 +14,17 @@ public class Enemy_StunnedState : EnemyState
         base.Enter();
 
         vfx.EnableAttackAlert(false);
-        enemy.EnableCounterwindow(false);
+        enemy.EnableCounterWindow(false);
 
         stateTimer = enemy.stunnedDuration;
-        rb.velocity = new Vector2(enemy.stunnedVelocity.x * -enemy.facingDer, enemy.stunnedVelocity.y);
+        rb.velocity = new Vector2(enemy.stunnedVelocity.x * -enemy.facingDir, enemy.stunnedVelocity.y);
     }
 
-    public override void update()
+    public override void Update()
     {
-        base.update();
+        base.Update();
 
         if (stateTimer < 0)
-            stateMachine.ChangeState(enemy.battleState);
+            stateMachine.ChangeState(enemy.idleState);
     }
 }
