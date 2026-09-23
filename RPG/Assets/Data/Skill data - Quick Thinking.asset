@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a2c777378ec8e49b444dcc5f7c5f47, type: 3}
+  m_Name: Skill data - Quick Thinking
+  m_EditorClassIdentifier: 
+  cost: 0
+  displayName: Quick Thinking
+  description: Quick Thinking
+  icon: {fileID: 1079564409, guid: 59cc6e4f0e6746d448554db404405179, type: 3}
