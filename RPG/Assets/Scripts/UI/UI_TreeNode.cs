@@ -1,10 +1,10 @@
-using System.Drawing;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class UI_TreeNode : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler,IPointerDownHandler
+public class UI_TreeNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     private UI ui;
     private RectTransform rect;
@@ -24,7 +24,7 @@ public class UI_TreeNode : MonoBehaviour, IPointerEnterHandler,IPointerExitHandl
     private string lockedColorHex = "#808080";
     private UnityEngine.Color lastColor;
 
-    
+
 
     private void Awake()
     {
@@ -35,6 +35,13 @@ public class UI_TreeNode : MonoBehaviour, IPointerEnterHandler,IPointerExitHandl
 
 
         updateIconColor(GetColorByHex(lockedColorHex));
+
+    }
+
+    private void Start()
+    {
+        if (skillData.unlockByDefault)
+            Unlock();
     }
 
     private void Unlock()
@@ -45,7 +52,11 @@ public class UI_TreeNode : MonoBehaviour, IPointerEnterHandler,IPointerExitHandl
 
         skillTree.RemoveSkillPoint(skillData.cost);
         treeConnectHandler.connectionImageUnlocked(isUnlocked);
+
+        skillTree.skillManager.GetSkillByType(skillData.skillType).SetSkillUpgrade(skillData.upgradeData);
     }
+
+
 
     private bool CanBeUnlocked()
     {
@@ -58,23 +69,37 @@ public class UI_TreeNode : MonoBehaviour, IPointerEnterHandler,IPointerExitHandl
 
         foreach (var node in neededNodes)
         {
-            if(node.isUnlocked == false)
+            if (node.isUnlocked == false)
                 return false;
         }
 
         foreach (var node in conflictNodes)
         {
             if (node.isUnlocked)
-                return false; 
+                return false;
         }
 
         return true;
     }
 
+
+    public void LockChildNode()
+    {
+        isLocked = true;
+
+        foreach (var node in treeConnectHandler.GetChildNodes())
+        {
+            node.LockChildNode();
+        }
+    }
+
     private void LockConflictNodes()
     {
         foreach (var node in conflictNodes)
+        {
             node.isLocked = true;
+            node.LockChildNode();
+        }
     }
 
     private void updateIconColor(UnityEngine.Color color)
@@ -88,15 +113,15 @@ public class UI_TreeNode : MonoBehaviour, IPointerEnterHandler,IPointerExitHandl
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(CanBeUnlocked())
+        if (CanBeUnlocked())
             Unlock();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        ui.skillToolTip.ShowtoolTip(true, rect,this);
-        if(isUnlocked || isLocked)
-           return;
+        ui.skillToolTip.ShowtoolTip(true, rect, this);
+        if (isUnlocked || isLocked)
+            return;
 
         UnityEngine.Color color = UnityEngine.Color.white * .9f; color.a = 1;
         updateIconColor(color);

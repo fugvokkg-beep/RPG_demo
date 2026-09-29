@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Skill data - Cleanse
   m_EditorClassIdentifier: 
   cost: 1
+  skillType: 1
+  upgradeData:
+    upgradeType: 0
+    coolDown: 0
   displayName: Cleanse
   description: Cleanse
   icon: {fileID: 646332429, guid: 59cc6e4f0e6746d448554db404405179, type: 3}

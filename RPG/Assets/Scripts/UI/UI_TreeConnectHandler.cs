@@ -27,18 +27,17 @@ public class UI_TreeConnectHandler : MonoBehaviour
             originalColor = connectionImage.color;
     }
 
-    private void OnValidate() 
+    public UI_TreeNode[] GetChildNodes()
     {
-        if (connectionDetails.Length <= 0)
-            return;
+        List<UI_TreeNode> ChildrentoReturn = new List<UI_TreeNode>();
 
-        if (connectionDetails.Length != connections.Length)
+        foreach(var node in connectionDetails)
         {
-            Debug.Log("amount error");
-            return;
+            if(node.childNode != null)
+                ChildrentoReturn.Add(node.childNode.GetComponent<UI_TreeNode>());
         }
 
-        UpdateConnections();
+        return ChildrentoReturn.ToArray();
     }
 
     private void UpdateConnections()
@@ -71,6 +70,20 @@ public class UI_TreeConnectHandler : MonoBehaviour
 
     public void SetConnectionImage(Image img) => connectionImage = img;
     public void SetPosition(Vector2 position) => rect.anchoredPosition = position;
+
+    private void OnValidate()
+    {
+        if (connectionDetails.Length <= 0)
+            return;
+
+        if (connectionDetails.Length != connections.Length)
+        {
+            Debug.Log("amount error");
+            return;
+        }
+
+        UpdateConnections();
+    }
 }
 
 

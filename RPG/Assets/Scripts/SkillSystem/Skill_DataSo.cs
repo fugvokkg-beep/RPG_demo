@@ -6,6 +6,9 @@ using UnityEngine;
 public class Skill_DataSo : ScriptableObject
 {
     public int cost;
+    public SkillType skillType;
+    public bool unlockByDefault;
+    public UpgradeData upgradeData;
 
 
     [Header("Skill descripion")]
@@ -13,4 +16,10 @@ public class Skill_DataSo : ScriptableObject
     [TextArea]
     public string description;
     public Sprite icon;
+}
+[System.Serializable]
+public class UpgradeData
+{
+    public SkillUpgradeType upgradeType;
+    public float coolDown;
 }
