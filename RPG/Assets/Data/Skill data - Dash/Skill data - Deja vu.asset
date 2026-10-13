@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 1
   skillType: 0
+  unlockByDefault: 0
   upgradeData:
-    upgradeType: 2
+    upgradeType: 3
     coolDown: 3
   displayName: Deja vu
   description: 

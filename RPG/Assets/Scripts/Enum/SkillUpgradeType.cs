@@ -17,8 +17,8 @@ public enum SkillUpgradeType
 
 
     Shard,
-    SHard_MoveToEntity,
-    Shard_TripleCast,
+    Shard_MoveToEntity,
+    Shard_Multicast,
     Shard_Teleport,
     Shard_TeleportAndHeal,
 

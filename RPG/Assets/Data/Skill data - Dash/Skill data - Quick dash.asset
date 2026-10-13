@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 1
   skillType: 0
-  unlockByDefault: 1
+  unlockByDefault: 0
   upgradeData:
-    upgradeType: 0
+    upgradeType: 1
     coolDown: 3
   displayName: Quick dash
   description: 

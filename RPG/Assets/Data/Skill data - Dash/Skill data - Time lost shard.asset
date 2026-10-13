@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 1
   skillType: 0
+  unlockByDefault: 0
   upgradeData:
-    upgradeType: 3
+    upgradeType: 4
     coolDown: 3
   displayName: Time lost shard
   description: 
